@@ -13,36 +13,42 @@ public class ParticipantController : ControllerBase
         _participantService = participantService;
     }
 
-    [HttpGet]
-    public async Task<Response<List<GEtParticipantDto>>> Get()
+     [HttpGet("GetParticipantsLinqu")]
+    public async Task<Response<List<GetParticipantsLinq>>> GetParticipantsLinq()
+    {
+        var Participants = await _participantService.GetParticipantLinqu();
+        return Participants;
+    }
+    [HttpGet(("GetParticipants"))]
+    public async Task<Response<List<GEtParticipantDto>>> GetParticipants()
     {
         var Participants = await _participantService.GetParticipants();
         return Participants;
     }
     
-    [HttpGet("{id}")]
-    public async Task<Response<Participant>> Get(int id)
+    [HttpGet("GetParticipantsById")]
+    public async Task<Response<Participant>> GetParticipantsById(int id)
     {
         var Participant = await _participantService.GetParticipantById(id);
         return Participant;
     }
     
-    [HttpPost]
-    public async Task<Response<AddParticipantDto>> Post(AddParticipantDto Participant)
+    [HttpPost(".AddParticipant")]
+    public async Task<Response<AddParticipantDto>> AddParticipant(AddParticipantDto Participant)
     {
         var newParticipant = await _participantService.AddParticipant(Participant);
         return newParticipant;
     }
     
-    [HttpPut]
-    public async Task<Response<AddParticipantDto>> Put(AddParticipantDto Participant)
+    [HttpPut("UpdateParticipant")]
+    public async Task<Response<AddParticipantDto>> UpdateParticipant(AddParticipantDto Participant)
     {
         var updatedParticipant = await _participantService.UpdateParticipant(Participant);
         return updatedParticipant;
     }
     
-    [HttpDelete]
-    public async Task<Response<string>> Delete(int id)
+    [HttpDelete("DeleteParticipant")]
+    public async Task<Response<string>> DeleteParticipant(int id)
     {
         var Participant = await _participantService.DeleteParticipant(id);
         return Participant;

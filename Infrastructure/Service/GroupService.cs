@@ -12,6 +12,27 @@ public class GroupService : IGroupService
         _context = context;
     }
 
+    public async Task<Response<List<GetGroupLinq>>> GetGroupLinqu()
+    {
+        var groups = await (from gr in _context.Groups
+                            join ch in _context.Challenges
+                            on gr.ChallangeId equals ch.Id
+                            orderby gr.CreatedAt descending
+                            select new GetGroupLinq
+                            {
+                                GroupNick = gr.GroupNick,
+                                 CreatedAt = gr.CreatedAt,
+                                 Id = gr.Id,
+                                 NeededMember = gr.NeededMember,
+                                 TeamSlogan = gr.TeamSlogan,
+                                ChallengeTitle = ch.Title
+                            }).ToListAsync();
+        
+        return new Response<List<GetGroupLinq>>(groups);
+                            
+                            
+    }
+    
     public async Task<Response<List<GEtGroupDto>>> GetGroups()
     {
         var Groups = await _context.Groups.Select(l => new GEtGroupDto()

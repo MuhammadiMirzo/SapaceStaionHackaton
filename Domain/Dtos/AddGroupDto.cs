@@ -9,7 +9,7 @@ public class AddGroupDto
     public bool NeededMember { get; set; }
     [MaxLength(300)]
     public string TeamSlogan { get; set; }
-    public DateTime CreatedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
 
     public AddGroupDto()
     {

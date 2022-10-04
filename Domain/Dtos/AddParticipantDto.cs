@@ -10,7 +10,7 @@ public class AddParticipantDto
     public string? Email { get; set; }
     [Required,MaxLength(13)]
     public string? Phone { get; set; }
-    public DateTime CreatedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
     public int GroupId { get; set; }
     public int LocationId { get; set; } 
   

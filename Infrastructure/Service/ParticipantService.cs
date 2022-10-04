@@ -12,6 +12,27 @@ public class ParticipantService : IParticipantService
         _context = context;
     }
 
+    public async Task<Response<List<GetParticipantsLinq>>> GetParticipantLinqu()
+    {
+        var participants = await (from pr in _context.Participants
+                            join gr in _context.Groups
+                            on pr.GroupId equals gr.Id
+                            join lc in _context.Locations
+                            on pr.LocationId equals lc.Id
+                            orderby gr.CreatedAt descending
+                            select new GetParticipantsLinq
+                            {
+                                Email = pr.Email,
+                                FullName = pr.FullName,
+                                Group = gr.GroupNick,
+                                Location = lc.Title,
+                                Phone = pr.Phone,
+                                 CreatedAt = pr.CreatedAt,
+                                 Id = pr.Id
+                            }).ToListAsync();
+        
+        return new Response<List<GetParticipantsLinq>>(participants);
+    }
     public async Task<Response<List<GEtParticipantDto>>> GetParticipants()
     {
         var Participants = await _context.Participants.Select(l => new GEtParticipantDto()

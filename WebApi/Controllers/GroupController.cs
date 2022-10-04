@@ -13,36 +13,43 @@ public class GroupController : ControllerBase
         _groupService = GroupService;
     }
 
-    [HttpGet]
-    public async Task<Response<List<GEtGroupDto>>> Get()
+     [HttpGet("GetGroupLinqu")]
+    public async Task<Response<List<GetGroupLinq>>> GetGroupLinqu()
+    {
+        var Groups = await _groupService.GetGroupLinqu();
+        return Groups;
+    }
+
+    [HttpGet("GetGroup")]
+    public async Task<Response<List<GEtGroupDto>>> GetGroup()
     {
         var Groups = await _groupService.GetGroups();
         return Groups;
     }
     
-    [HttpGet("{id}")]
-    public async Task<Response<Group>> Get(int id)
+    [HttpGet("GetGroupById")]
+    public async Task<Response<Group>> GetGroupById(int id)
     {
         var Group = await _groupService.GetGroupById(id);
         return Group;
     }
     
-    [HttpPost]
-    public async Task<Response<AddGroupDto>> Post(AddGroupDto Group)
+    [HttpPost("AddGroup")]
+    public async Task<Response<AddGroupDto>> AddGroup(AddGroupDto Group)
     {
         var newGroup = await _groupService.AddGroup(Group);
         return newGroup;
     }
     
-    [HttpPut]
-    public async Task<Response<AddGroupDto>> Put(AddGroupDto Group)
+    [HttpPut("UpdateGroup")]
+    public async Task<Response<AddGroupDto>> UpdateGroup(AddGroupDto Group)
     {
         var updatedGroup = await _groupService.UpdateGroup(Group);
         return updatedGroup;
     }
     
-    [HttpDelete]
-    public async Task<Response<string>> Delete(int id)
+    [HttpDelete("DeleteGroup")]
+    public async Task<Response<string>> DeleteGroup(int id)
     {
         var Group = await _groupService.DeleteGroup(id);
         return Group;
