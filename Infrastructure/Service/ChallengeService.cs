@@ -12,6 +12,33 @@ public class ChallengeService : IChallengeService
         _context = context;
     }
 
+    
+    public async Task<Response<List<GetChallengeAndGroupDto>>> GetChallengeAndGroupLinqu()
+    {
+        var groups = await (from ch in _context.Challenges
+                            select new GetChallengeAndGroupDto
+                            {
+                                Description = ch.Description,
+                                Id = ch.Id,
+                                Title = ch.Title,
+                                Groups = (
+                                    from g in _context.Groups
+                                    where g.ChallangeId == ch.Id
+                                    select new GEtGroupDto()
+                                    {
+                                        ChallengeId = g.ChallangeId,
+                                        GroupNick = g.GroupNick,
+                                        NeededMember = g.NeededMember,
+                                        TeamSlogan = g.TeamSlogan,
+                                        Id = g.Id
+                                    }).ToList(),
+                                
+                            }).ToListAsync();
+        
+        return new Response<List<GetChallengeAndGroupDto>>(groups);
+                            
+                            
+    }
     public async Task<Response<List<GEtChallengeDto>>> GetChallenges()
     {
         var Challenges = await _context.Challenges.Select(l => new GEtChallengeDto()

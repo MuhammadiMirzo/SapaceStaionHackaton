@@ -13,36 +13,42 @@ public class ChallengeController : ControllerBase
         _challengeService = ChallengeService;
     }
 
-    [HttpGet]
+    [HttpGet("GetChallengeAndGroupDto")]
+    public async Task<Response<List<GetChallengeAndGroupDto>>> GetChallengeAndGroupDto()
+    {
+        var challenges = await _challengeService.GetChallengeAndGroupLinqu();
+        return challenges;
+    }
+    [HttpGet("GetChallenge")]
     public async Task<Response<List<GEtChallengeDto>>> Get()
     {
         var Challenges = await _challengeService.GetChallenges();
         return Challenges;
     }
     
-    [HttpGet("{id}")]
-    public async Task<Response<Challenge>> Get(int id)
+    [HttpGet("GetByChallenge")]
+    public async Task<Response<Challenge>> GetChallengeById(int id)
     {
         var Challenge = await _challengeService.GetChallengeById(id);
         return Challenge;
     }
     
-    [HttpPost]
-    public async Task<Response<AddChallengeDto>> Post(AddChallengeDto Challenge)
+    [HttpPost("AddChallen")]
+    public async Task<Response<AddChallengeDto>> AddChallenge(AddChallengeDto Challenge)
     {
         var newChallenge = await _challengeService.AddChallenge(Challenge);
         return newChallenge;
     }
     
-    [HttpPut]
-    public async Task<Response<AddChallengeDto>> Put(AddChallengeDto Challenge)
+    [HttpPut("UpdateChallenge")]
+    public async Task<Response<AddChallengeDto>> UpdateChallengePut(AddChallengeDto Challenge)
     {
         var updatedChallenge = await _challengeService.UpdateChallenge(Challenge);
         return updatedChallenge;
     }
     
-    [HttpDelete]
-    public async Task<Response<string>> Delete(int id)
+    [HttpDelete("DeleteChallenge")]
+    public async Task<Response<string>> DeleteChallenge(int id)
     {
         var Challenge = await _challengeService.DeleteChallenge(id);
         return Challenge;

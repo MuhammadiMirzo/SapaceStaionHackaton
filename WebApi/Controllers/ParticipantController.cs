@@ -12,8 +12,7 @@ public class ParticipantController : ControllerBase
     {
         _participantService = participantService;
     }
-
-     [HttpGet("GetParticipantsLinqu")]
+    [HttpGet("GetParticipantsLinqu")]
     public async Task<Response<List<GetParticipantsLinq>>> GetParticipantsLinq()
     {
         var Participants = await _participantService.GetParticipantLinqu();

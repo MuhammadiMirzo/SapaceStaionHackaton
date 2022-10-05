@@ -11,7 +11,38 @@ public class GroupService : IGroupService
     {
         _context = context;
     }
-
+    
+    public async Task<Response<List<GetGroupAndParticipant>>> GetGroupAndParticipantLinqu()
+    {
+        var groups = await (from gr in _context.Groups
+                            select new GetGroupAndParticipant
+                            {
+                                GroupNick = gr.GroupNick,
+                                TeamSlogan = gr.TeamSlogan,
+                                NeededMember = gr.NeededMember,
+                                CreatedAt = gr.CreatedAt,
+                                ChallengeId = gr.ChallangeId,
+                                Id = gr.Id,
+                                Participants = (
+                                    from pr in _context.Participants
+                                    where pr.GroupId == gr.Id
+                                    select new GEtParticipantDto()
+                                    {
+                                        CreatedAt = pr.CreatedAt,
+                                        Email = pr.Email,
+                                        FullName = pr.FullName,
+                                        GroupId = pr.GroupId,
+                                        Id = pr.Id,
+                                        LocationId = pr.LocationId,
+                                        Phone = pr.Phone
+                                    }).ToList(),
+                                
+                            }).ToListAsync();
+        
+        return new Response<List<GetGroupAndParticipant>>(groups);
+                            
+                            
+    }
     public async Task<Response<List<GetGroupLinq>>> GetGroupLinqu()
     {
         var groups = await (from gr in _context.Groups

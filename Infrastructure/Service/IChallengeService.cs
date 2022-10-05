@@ -7,5 +7,6 @@ public interface IChallengeService
     Task<Response<Challenge>> GetChallengeById(int id);
     Task<Response<List<GEtChallengeDto>>> GetChallenges();
     Task<Response<AddChallengeDto>> UpdateChallenge(AddChallengeDto Challenge);
+    Task<Response<List<GetChallengeAndGroupDto>>> GetChallengeAndGroupLinqu();
 }
 

@@ -3,6 +3,8 @@ using Domain.Wrapper;
 
 public interface IGroupService
 {
+    
+     Task<Response<List<GetGroupAndParticipant>>> GetGroupAndParticipantLinqu();
     Task<Response<AddGroupDto>> AddGroup(AddGroupDto model);
     Task<Response<string>> DeleteGroup(int id);
     bool Equals(object? obj);

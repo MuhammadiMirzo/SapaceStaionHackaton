@@ -12,8 +12,13 @@ public class GroupController : ControllerBase
     {
         _groupService = GroupService;
     }
-
-     [HttpGet("GetGroupLinqu")]
+    [HttpGet("GetGroupAndParticipant")]
+    public async Task<Response<List<GetGroupAndParticipant>>> GetGroupAndParticipantLinqu()
+    {
+        var Groups = await _groupService.GetGroupAndParticipantLinqu();
+        return Groups;
+    }
+    [HttpGet("GetGroupLinqu")]
     public async Task<Response<List<GetGroupLinq>>> GetGroupLinqu()
     {
         var Groups = await _groupService.GetGroupLinqu();
